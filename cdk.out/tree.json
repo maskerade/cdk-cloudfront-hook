@@ -1,0 +1,312 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.0.91"
+        }
+      },
+      "CdkCloudfrontHookStack": {
+        "id": "CdkCloudfrontHookStack",
+        "path": "CdkCloudfrontHookStack",
+        "children": {
+          "myBucket": {
+            "id": "myBucket",
+            "path": "CdkCloudfrontHookStack/myBucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "CdkCloudfrontHookStack/myBucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {}
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.17.0"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "CdkCloudfrontHookStack/myBucket/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CdkCloudfrontHookStack/myBucket/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "bucket": {
+                          "Ref": "myBucket5AF9C99B"
+                        },
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "s3:GetObject",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "CanonicalUser": {
+                                  "Fn::GetAtt": [
+                                    "distroOrigin1S3OriginA9022668",
+                                    "S3CanonicalUserId"
+                                  ]
+                                }
+                              },
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "myBucket5AF9C99B",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "/*"
+                                  ]
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                      "version": "2.17.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+                  "version": "2.17.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.17.0"
+            }
+          },
+          "VersionFunction": {
+            "id": "VersionFunction",
+            "path": "CdkCloudfrontHookStack/VersionFunction",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.FunctionBase",
+              "version": "2.17.0"
+            }
+          },
+          "Version": {
+            "id": "Version",
+            "path": "CdkCloudfrontHookStack/Version",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.QualifiedFunctionBase",
+              "version": "2.17.0"
+            }
+          },
+          "SsmParameterValue:MyParameter:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
+            "id": "SsmParameterValue:MyParameter:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "path": "CdkCloudfrontHookStack/SsmParameterValue:MyParameter:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.17.0"
+            }
+          },
+          "SsmParameterValue:MyParameter:C96584B6-F00A-464E-AD19-53AFF4B05118": {
+            "id": "SsmParameterValue:MyParameter:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "path": "CdkCloudfrontHookStack/SsmParameterValue:MyParameter:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.17.0"
+            }
+          },
+          "Version2Function": {
+            "id": "Version2Function",
+            "path": "CdkCloudfrontHookStack/Version2Function",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.FunctionBase",
+              "version": "2.17.0"
+            }
+          },
+          "Version2": {
+            "id": "Version2",
+            "path": "CdkCloudfrontHookStack/Version2",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.QualifiedFunctionBase",
+              "version": "2.17.0"
+            }
+          },
+          "distro": {
+            "id": "distro",
+            "path": "CdkCloudfrontHookStack/distro",
+            "children": {
+              "Origin1": {
+                "id": "Origin1",
+                "path": "CdkCloudfrontHookStack/distro/Origin1",
+                "children": {
+                  "S3Origin": {
+                    "id": "S3Origin",
+                    "path": "CdkCloudfrontHookStack/distro/Origin1/S3Origin",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CdkCloudfrontHookStack/distro/Origin1/S3Origin/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+                          "aws:cdk:cloudformation:props": {
+                            "cloudFrontOriginAccessIdentityConfig": {
+                              "comment": "Identity for CdkCloudfrontHookStackdistroOrigin173B4382B"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_cloudfront.CfnCloudFrontOriginAccessIdentity",
+                          "version": "2.17.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cloudfront.OriginAccessIdentity",
+                      "version": "2.17.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.0.91"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "CdkCloudfrontHookStack/distro/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudFront::Distribution",
+                  "aws:cdk:cloudformation:props": {
+                    "distributionConfig": {
+                      "enabled": true,
+                      "origins": [
+                        {
+                          "domainName": {
+                            "Fn::GetAtt": [
+                              "myBucket5AF9C99B",
+                              "RegionalDomainName"
+                            ]
+                          },
+                          "id": "CdkCloudfrontHookStackdistroOrigin173B4382B",
+                          "s3OriginConfig": {
+                            "originAccessIdentity": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "origin-access-identity/cloudfront/",
+                                  {
+                                    "Ref": "distroOrigin1S3OriginA9022668"
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      ],
+                      "defaultCacheBehavior": {
+                        "pathPattern": "*",
+                        "targetOriginId": "CdkCloudfrontHookStackdistroOrigin173B4382B",
+                        "cachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+                        "compress": true,
+                        "viewerProtocolPolicy": "allow-all",
+                        "lambdaFunctionAssociations": [
+                          {
+                            "lambdaFunctionArn": "arn:aws:lambda:us-east-1:123456789012:function:functionName:1",
+                            "eventType": "viewer-request"
+                          },
+                          {
+                            "lambdaFunctionArn": {
+                              "Ref": "SsmParameterValueMyParameterC96584B6F00A464EAD1953AFF4B05118Parameter"
+                            },
+                            "eventType": "viewer-response"
+                          }
+                        ]
+                      },
+                      "cacheBehaviors": [
+                        {
+                          "pathPattern": "testpath",
+                          "targetOriginId": "CdkCloudfrontHookStackdistroOrigin173B4382B",
+                          "cachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+                          "compress": true,
+                          "viewerProtocolPolicy": "allow-all",
+                          "lambdaFunctionAssociations": [
+                            {
+                              "lambdaFunctionArn": "arn:aws:lambda:us-east-1:123456789012:function:functionName:1",
+                              "eventType": "viewer-request"
+                            },
+                            {
+                              "lambdaFunctionArn": {
+                                "Ref": "SsmParameterValueMyParameterC96584B6F00A464EAD1953AFF4B05118Parameter"
+                              },
+                              "eventType": "viewer-response"
+                            }
+                          ]
+                        }
+                      ],
+                      "httpVersion": "http2",
+                      "ipv6Enabled": true
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cloudfront.CfnDistribution",
+                  "version": "2.17.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cloudfront.Distribution",
+              "version": "2.17.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "CdkCloudfrontHookStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "CdkCloudfrontHookStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.17.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "CdkCloudfrontHookStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnCondition",
+                  "version": "2.17.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.0.91"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.17.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.17.0"
+    }
+  }
+}
