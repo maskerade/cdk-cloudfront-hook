@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+export NODE_PATH=/Users/figueiredos/sd-gitrepos/cdk-cloudfront-hook/.env/lib/node_modules
+export NPM_CONFIG_PREFIX=/Users/figueiredos/sd-gitrepos/cdk-cloudfront-hook/.env
+export npm_config_prefix=/Users/figueiredos/sd-gitrepos/cdk-cloudfront-hook/.env
+exec .env/bin/node "$@"
