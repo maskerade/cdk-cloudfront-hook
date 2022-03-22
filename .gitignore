@@ -132,3 +132,7 @@ rpdk.log*
 build
 .penv
 .idea
+
+node_modules/
+
+cdk.out

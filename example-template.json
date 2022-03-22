@@ -1,0 +1,46 @@
+{
+  "DistributionConfig": {
+    "Origins": [
+      {
+        "DomainName": "cdkcloudfronthookstack-mybucket5af9c99b-nxklu8uvgyuw.s3.eu-west-2.amazonaws.com",
+        "S3OriginConfig": {
+          "OriginAccessIdentity": "origin-access-identity/cloudfront/E1FBLO3B715K87"
+        },
+        "Id": "CdkCloudfrontHookStackdistroOrigin173B4382B"
+      }
+    ],
+    "DefaultCacheBehavior": {
+      "Compress": "true",
+      "LambdaFunctionAssociations": [
+        {
+          "EventType": "viewer-request",
+          "LambdaFunctionARN": "arn:aws:lambda:us-east-1:123456789012:function:functionName:1"
+        },
+        {
+          "EventType": "viewer-response",
+          "LambdaFunctionARN": "test"
+        }
+      ],
+      "TargetOriginId": "CdkCloudfrontHookStackdistroOrigin173B4382B",
+      "ViewerProtocolPolicy": "allow-all",
+      "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6"
+    },
+    "IPV6Enabled": "true",
+    "Enabled": "true",
+    "HttpVersion": "http2",
+    "CacheBehaviors": [
+      {
+        "Compress": "true",
+        "PathPattern": "testpath",
+        "LambdaFunctionAssociations": [
+          {
+            "EventType": "viewer-request",
+            "LambdaFunctionARN": "arn:aws:lambda:us-east-1:123456789012:function:functionName:1"
+          },
+          {
+            "EventType": "viewer-response",
+            "LambdaFunctionARN": "test"
+          }
+        ],
+        "TargetOriginId": "CdkCloudfrontHookStackdistroOrigin173B4382B", "ViewerProtocolPolicy": "allow-all", "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6"
+    }]}}

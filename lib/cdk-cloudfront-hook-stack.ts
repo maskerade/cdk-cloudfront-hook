@@ -15,21 +15,28 @@ export class CdkCloudfrontHookStack extends Stack {
     // to a CloudFront distribution.
     const s3Bucket = new s3.Bucket(this, 'myBucket');
     const s3Origin = new origins.S3Origin(s3Bucket)
-    const functionVersion = lambda.Version.fromVersionArn(this, 'Version', 'arn:aws:lambda:us-east-1:123456789012:function:functionName:1');
-    const functionVersion2 = lambda.Version.fromVersionArn(this, 'Version2', ssm.StringParameter.valueForStringParameter(this, `MyParameter`));
+
+    const edgeLambdaViewerRequest = new cloudfront.experimental.EdgeFunction(this, 'EdgeLambdaViewerRequest', {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'index.handler',
+      code: new lambda.AssetCode("src/edge-lambda-request")
+    });
+
+    // Create SSM Param used by
+    const ssmParam = new ssm.StringParameter(this, 'EdgeLambdaArn', {
+      parameterName: "EdgeLambdaArn",
+      stringValue: edgeLambdaViewerRequest.edgeArn,
+    });
+
 
     const cloudFrontDistribution = new cloudfront.Distribution(this, 'distro', {
       defaultBehavior: {
         origin: s3Origin,
         edgeLambdas: [
           {
-            functionVersion,
+            functionVersion: edgeLambdaViewerRequest.currentVersion,
             eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
-          },
-          {
-            functionVersion: functionVersion2,
-            eventType: cloudfront.LambdaEdgeEventType.VIEWER_RESPONSE,
-          },
+          }
         ],
       },
     });
@@ -37,18 +44,15 @@ export class CdkCloudfrontHookStack extends Stack {
     cloudFrontDistribution.addBehavior('testpath', s3Origin, {
       edgeLambdas: [
         {
-          functionVersion,
-          eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
-        },
-        {
-          functionVersion: functionVersion2,
-          eventType: cloudfront.LambdaEdgeEventType.VIEWER_RESPONSE,
+          functionVersion: edgeLambdaViewerRequest.currentVersion,
+          eventType: cloudfront.LambdaEdgeEventType.ORIGIN_REQUEST,
         },
       ],
     } )
 
-
-
+    // Test using {{resolve:ssm:<param-name>:<param-version>}}
+    // const cfnDistro = cloudFrontDistribution.node.defaultChild as cloudfront.CfnDistribution
+    // cfnDistro.addPropertyOverride("DistributionConfig.Comment", "{{resolve:ssm:MyParameter:1}}");
 
   }
 }
